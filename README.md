@@ -53,15 +53,20 @@ This model is designed to be trainable on local hardware:
 
 **Training times** are for 10-50k cells, 50-100 epochs on mid-range GPU.
 
-**CPU-only training** is possible but slow (24-48 hours for minimal config).
+**CPU-only training** is possible but slow (2-6 hours for ultra-minimal config).
 
-**Quick start for limited hardware**:
+**Quick start guides**:
 ```bash
-# Use minimal configuration (smaller model, faster training)
+# GPU training (minimal config)
 python train_minimal.py
+
+# CPU-only training (laptops without GPU)
+python train_cpu.py
 ```
 
-📖 **See [docs/HARDWARE_REQUIREMENTS.md](docs/HARDWARE_REQUIREMENTS.md) for detailed specifications and optimization tips.**
+📖 **Detailed guides**:
+- **[Hardware Requirements](docs/HARDWARE_REQUIREMENTS.md)** - Full specs and optimization
+- **[CPU Training Guide](docs/CPU_TRAINING_GUIDE.md)** - For laptops without GPU (T480s, MacBook, etc.)
 
 ## Quick Start
 

@@ -1,0 +1,35 @@
+# Ultra-Minimal Configuration for CPU-Only Training
+# Optimized for laptops without dedicated GPU (like T480s)
+# Expected training time: 2-6 hours on modern quad-core CPU
+
+model:
+  name: "scRNA_FM_CPU"
+
+  # Very small gene vocabulary
+  n_genes: 500  # Drastically reduced for CPU
+  gene_embedding_dim: 32  # Very small
+
+  # Expression encoding
+  expression_bins: 50
+  expression_encoding: "binned"
+
+  # Tiny transformer
+  hidden_dim: 64  # Minimal
+  num_layers: 2
+  num_heads: 2  # Fewer heads
+  ff_dim: 256  # Much smaller
+  dropout: 0.1
+  activation: "gelu"
+
+  # Positional encoding
+  use_positional_encoding: true
+  max_position_embeddings: 512
+
+  # Output heads
+  use_mlm_head: true
+  use_contrastive_head: false  # Disable to save compute
+  projection_dim: 32
+
+  # Special tokens
+  mask_token_id: 0
+  pad_token_id: 1

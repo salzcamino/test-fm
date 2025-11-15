@@ -1,0 +1,52 @@
+# Ultra-Minimal Training Config for CPU
+# Optimized for laptops without GPU
+
+training:
+  # Very small batches for CPU
+  batch_size: 4  # CPU can't handle large batches
+  num_epochs: 20  # Fewer epochs for faster completion
+  gradient_accumulation_steps: 8  # Effective batch size = 32
+  max_steps: -1
+
+  # Optimization
+  optimizer: "adamw"
+  learning_rate: 1e-4
+  weight_decay: 0.01
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_epsilon: 1e-8
+  max_grad_norm: 1.0
+
+  # Learning rate schedule
+  lr_scheduler: "cosine"
+  warmup_steps: 200
+  warmup_ratio: 0.1
+
+  # No mixed precision for CPU
+  fp16: false
+  bf16: false
+
+  # Pre-training objectives
+  mlm_probability: 0.15
+  contrastive_temperature: 0.07
+  mlm_weight: 1.0
+  contrastive_weight: 0.0  # Disabled
+
+  # Checkpointing
+  save_steps: 500
+  save_total_limit: 2
+  checkpoint_dir: "checkpoints_cpu"
+
+  # Logging
+  logging_steps: 20
+  eval_steps: 200
+  use_wandb: false
+  wandb_project: "scrna-foundation-model"
+
+  # Reproducibility
+  seed: 42
+
+  # Hardware - CPU ONLY
+  device: "cpu"
+  num_workers: 0  # Use 0 for CPU to avoid overhead
+  pin_memory: false  # Not useful for CPU
