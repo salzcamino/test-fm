@@ -39,6 +39,30 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
+## Hardware Requirements
+
+### Can I train this on my PC? **YES!**
+
+This model is designed to be trainable on local hardware:
+
+| Setup | GPU | RAM | Suitable For |
+|-------|-----|-----|--------------|
+| **Minimal** | RTX 3050+ (4GB VRAM) or CPU | 8-16 GB | Learning, testing (~2-4 hours) |
+| **Default** | RTX 3060+ (8GB VRAM) | 16-32 GB | Research, production (~4-8 hours) |
+| **Large** | RTX 3080+ (12GB VRAM) | 32-64 GB | Large datasets, publications (~8-16 hours) |
+
+**Training times** are for 10-50k cells, 50-100 epochs on mid-range GPU.
+
+**CPU-only training** is possible but slow (24-48 hours for minimal config).
+
+**Quick start for limited hardware**:
+```bash
+# Use minimal configuration (smaller model, faster training)
+python train_minimal.py
+```
+
+📖 **See [docs/HARDWARE_REQUIREMENTS.md](docs/HARDWARE_REQUIREMENTS.md) for detailed specifications and optimization tips.**
+
 ## Quick Start
 
 ### 1. Basic Usage
