@@ -1,0 +1,33 @@
+# Model Configuration for scRNA-seq Foundation Model
+
+model:
+  name: "scRNA_FM"
+
+  # Gene vocabulary settings
+  n_genes: 2000  # Number of highly variable genes to use
+  gene_embedding_dim: 128  # Dimension of gene embeddings
+
+  # Expression encoding
+  expression_bins: 50  # Number of bins for expression discretization
+  expression_encoding: "binned"  # Options: "binned", "continuous"
+
+  # Transformer architecture
+  hidden_dim: 256  # Hidden dimension size
+  num_layers: 4  # Number of transformer layers
+  num_heads: 8  # Number of attention heads
+  ff_dim: 1024  # Feed-forward dimension
+  dropout: 0.1  # Dropout rate
+  activation: "gelu"  # Activation function
+
+  # Positional encoding
+  use_positional_encoding: true
+  max_position_embeddings: 2048
+
+  # Output heads
+  use_mlm_head: true  # Masked language modeling head
+  use_contrastive_head: true  # Contrastive learning head
+  projection_dim: 128  # Dimension for contrastive projection
+
+  # Special tokens
+  mask_token_id: 0
+  pad_token_id: 1
