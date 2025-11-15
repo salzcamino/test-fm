@@ -55,18 +55,24 @@ This model is designed to be trainable on local hardware:
 
 **CPU-only training** is possible but slow (2-6 hours for ultra-minimal config).
 
-**Quick start guides**:
+**Quick start options**:
+
 ```bash
-# GPU training (minimal config)
+# Option 1: Google Colab (RECOMMENDED - FREE GPU!)
+# Click here: Open in Colab badge in notebooks/Google_Colab_Training.ipynb
+# Training time: 5-15 minutes on free T4 GPU
+
+# Option 2: Local GPU training (minimal config)
 python train_minimal.py
 
-# CPU-only training (laptops without GPU)
-python train_cpu.py
+# Option 3: CPU-only training (laptops without GPU)
+python train_cpu.py  # 2-4 hours on T480s
 ```
 
 📖 **Detailed guides**:
+- **[Google Colab Guide](docs/GOOGLE_COLAB_GUIDE.md)** - FREE GPU training (RECOMMENDED!)
 - **[Hardware Requirements](docs/HARDWARE_REQUIREMENTS.md)** - Full specs and optimization
-- **[CPU Training Guide](docs/CPU_TRAINING_GUIDE.md)** - For laptops without GPU (T480s, MacBook, etc.)
+- **[CPU Training Guide](docs/CPU_TRAINING_GUIDE.md)** - For laptops without GPU
 
 ## Quick Start
 
