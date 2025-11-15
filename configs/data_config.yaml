@@ -1,0 +1,43 @@
+# Data Configuration
+
+data:
+  # Data paths
+  raw_data_dir: "data/raw"
+  processed_data_dir: "data/processed"
+
+  # Preprocessing parameters
+  preprocessing:
+    # Quality control
+    min_genes_per_cell: 200  # Minimum genes per cell
+    min_cells_per_gene: 3  # Minimum cells per gene
+    max_genes_per_cell: 5000  # Maximum genes per cell (filter doublets)
+    max_pct_mito: 20  # Maximum mitochondrial percentage
+
+    # Normalization
+    normalize_total: true
+    target_sum: 10000  # Target sum for normalization
+    log1p: true  # Apply log1p transformation
+
+    # Feature selection
+    n_top_genes: 2000  # Number of highly variable genes
+    flavor: "seurat_v3"  # Method for HVG selection
+
+    # Scaling
+    scale: false  # Whether to scale data
+    max_value: 10  # Maximum value after scaling
+
+  # Data splitting
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+
+  # Data augmentation
+  augmentation:
+    use_augmentation: true
+    dropout_prob: 0.1  # Random dropout of gene expressions
+    gaussian_noise: 0.01  # Gaussian noise std
+
+  # Dataset settings
+  max_cells_per_dataset: -1  # -1 for no limit
+  subsample_datasets: false
+  balance_cell_types: false
