@@ -1,0 +1,52 @@
+# Minimal Training Configuration for Low-Resource Training
+# Optimized for faster training on limited hardware
+
+training:
+  # Basic settings (smaller batches)
+  batch_size: 8  # Reduced from 32
+  num_epochs: 50  # Reduced from 100 for faster initial training
+  gradient_accumulation_steps: 4  # Effective batch size = 32
+  max_steps: -1
+
+  # Optimization
+  optimizer: "adamw"
+  learning_rate: 1e-4
+  weight_decay: 0.01
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_epsilon: 1e-8
+  max_grad_norm: 1.0
+
+  # Learning rate schedule
+  lr_scheduler: "cosine"
+  warmup_steps: 500  # Reduced from 1000
+  warmup_ratio: 0.1
+
+  # Mixed precision training (important for memory!)
+  fp16: false
+  bf16: true  # Use bfloat16 if available (requires Ampere+ GPU)
+
+  # Pre-training objectives
+  mlm_probability: 0.15
+  contrastive_temperature: 0.07
+  mlm_weight: 1.0
+  contrastive_weight: 0.5
+
+  # Checkpointing
+  save_steps: 2000  # More frequent for shorter training
+  save_total_limit: 2
+  checkpoint_dir: "checkpoints"
+
+  # Logging
+  logging_steps: 50  # More frequent logging
+  eval_steps: 500
+  use_wandb: false  # Disable for minimal setup
+  wandb_project: "scrna-foundation-model"
+
+  # Reproducibility
+  seed: 42
+
+  # Hardware
+  device: "cuda"  # Change to "cpu" if no GPU available
+  num_workers: 2  # Reduced from 4
+  pin_memory: true

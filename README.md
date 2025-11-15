@@ -39,6 +39,41 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
+## Hardware Requirements
+
+### Can I train this on my PC? **YES!**
+
+This model is designed to be trainable on local hardware:
+
+| Setup | GPU | RAM | Suitable For |
+|-------|-----|-----|--------------|
+| **Minimal** | RTX 3050+ (4GB VRAM) or CPU | 8-16 GB | Learning, testing (~2-4 hours) |
+| **Default** | RTX 3060+ (8GB VRAM) | 16-32 GB | Research, production (~4-8 hours) |
+| **Large** | RTX 3080+ (12GB VRAM) | 32-64 GB | Large datasets, publications (~8-16 hours) |
+
+**Training times** are for 10-50k cells, 50-100 epochs on mid-range GPU.
+
+**CPU-only training** is possible but slow (2-6 hours for ultra-minimal config).
+
+**Quick start options**:
+
+```bash
+# Option 1: Google Colab (RECOMMENDED - FREE GPU!)
+# Click here: Open in Colab badge in notebooks/Google_Colab_Training.ipynb
+# Training time: 5-15 minutes on free T4 GPU
+
+# Option 2: Local GPU training (minimal config)
+python train_minimal.py
+
+# Option 3: CPU-only training (laptops without GPU)
+python train_cpu.py  # 2-4 hours on T480s
+```
+
+📖 **Detailed guides**:
+- **[Google Colab Guide](docs/GOOGLE_COLAB_GUIDE.md)** - FREE GPU training (RECOMMENDED!)
+- **[Hardware Requirements](docs/HARDWARE_REQUIREMENTS.md)** - Full specs and optimization
+- **[CPU Training Guide](docs/CPU_TRAINING_GUIDE.md)** - For laptops without GPU
+
 ## Quick Start
 
 ### 1. Basic Usage

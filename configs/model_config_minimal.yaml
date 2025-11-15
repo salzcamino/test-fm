@@ -1,0 +1,34 @@
+# Minimal Model Configuration for Low-Resource Training
+# Use this for laptops, older GPUs, or CPU-only training
+
+model:
+  name: "scRNA_FM_Minimal"
+
+  # Gene vocabulary settings
+  n_genes: 1000  # Reduced from 2000
+  gene_embedding_dim: 64  # Reduced from 128
+
+  # Expression encoding
+  expression_bins: 50
+  expression_encoding: "binned"
+
+  # Transformer architecture (smaller)
+  hidden_dim: 128  # Reduced from 256
+  num_layers: 2  # Reduced from 4
+  num_heads: 4  # Reduced from 8
+  ff_dim: 512  # Reduced from 1024
+  dropout: 0.1
+  activation: "gelu"
+
+  # Positional encoding
+  use_positional_encoding: true
+  max_position_embeddings: 1024  # Reduced from 2048
+
+  # Output heads
+  use_mlm_head: true
+  use_contrastive_head: true
+  projection_dim: 64  # Reduced from 128
+
+  # Special tokens
+  mask_token_id: 0
+  pad_token_id: 1
