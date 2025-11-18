@@ -26,7 +26,33 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
     ],
     python_requires=">=3.8",
     install_requires=requirements,
+    extras_require={
+        'dev': [
+            'pytest>=7.4.0',
+            'pytest-cov>=4.1.0',
+            'pytest-xdist>=3.3.0',
+            'black>=23.7.0',
+            'flake8>=6.1.0',
+            'mypy>=1.5.0',
+            'isort>=5.12.0',
+        ],
+        'docs': [
+            'sphinx>=7.1.0',
+            'sphinx-rtd-theme>=1.3.0',
+        ],
+        'all': [
+            'pytest>=7.4.0',
+            'pytest-cov>=4.1.0',
+            'pytest-xdist>=3.3.0',
+            'black>=23.7.0',
+            'flake8>=6.1.0',
+            'mypy>=1.5.0',
+            'sphinx>=7.1.0',
+            'sphinx-rtd-theme>=1.3.0',
+        ],
+    },
 )

@@ -100,9 +100,11 @@ def compute_reconstruction_metrics(
     pred_centered = predictions - pred_mean
     target_centered = targets - target_mean
 
+    # Add epsilon to avoid division by zero
+    eps = 1e-8
     correlation = (
         torch.sum(pred_centered * target_centered) /
-        (torch.sqrt(torch.sum(pred_centered ** 2)) * torch.sqrt(torch.sum(target_centered ** 2)))
+        (torch.sqrt(torch.sum(pred_centered ** 2)) * torch.sqrt(torch.sum(target_centered ** 2)) + eps)
     ).item()
 
     metrics = {
