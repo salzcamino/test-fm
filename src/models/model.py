@@ -153,6 +153,22 @@ class scRNAFoundationModel(nn.Module):
         """
         super().__init__()
 
+        # Validate parameters
+        if n_genes <= 0:
+            raise ValueError(f"n_genes must be positive, got {n_genes}")
+        if hidden_dim <= 0:
+            raise ValueError(f"hidden_dim must be positive, got {hidden_dim}")
+        if num_layers <= 0:
+            raise ValueError(f"num_layers must be positive, got {num_layers}")
+        if num_heads <= 0:
+            raise ValueError(f"num_heads must be positive, got {num_heads}")
+        if hidden_dim % num_heads != 0:
+            raise ValueError(
+                f"hidden_dim ({hidden_dim}) must be divisible by num_heads ({num_heads})"
+            )
+        if not 0 <= dropout <= 1:
+            raise ValueError(f"dropout must be between 0 and 1, got {dropout}")
+
         self.n_genes = n_genes
         self.hidden_dim = hidden_dim
         self.use_mlm_head = use_mlm_head

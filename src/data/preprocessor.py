@@ -80,7 +80,7 @@ class scRNAPreprocessor:
         if not inplace:
             return adata
 
-    def filter_cells(self, adata: ad.AnnData, inplace: bool = True) -> Optional[ad.AnnData]:
+    def filter_cells(self, adata: ad.AnnData, inplace: bool = True) -> ad.AnnData:
         """Filter cells based on QC metrics.
 
         Args:
@@ -88,7 +88,7 @@ class scRNAPreprocessor:
             inplace: Whether to modify in place
 
         Returns:
-            AnnData object if not inplace
+            Filtered AnnData object
         """
         if not inplace:
             adata = adata.copy()
@@ -110,8 +110,7 @@ class scRNAPreprocessor:
         n_cells_after = adata.n_obs
         logger.info(f"Filtered {n_cells_before - n_cells_after} cells, {n_cells_after} remaining")
 
-        if not inplace:
-            return adata
+        return adata
 
     def filter_genes(self, adata: ad.AnnData, inplace: bool = True) -> Optional[ad.AnnData]:
         """Filter genes based on expression.
@@ -207,7 +206,7 @@ class scRNAPreprocessor:
             inplace: Whether to modify in place
 
         Returns:
-            AnnData object if not inplace
+            AnnData object (always returns for consistency)
         """
         if not inplace:
             adata = adata.copy()
@@ -216,10 +215,9 @@ class scRNAPreprocessor:
             raise ValueError("Highly variable genes not identified. Run find_highly_variable_genes first.")
 
         logger.info(f"Subsetting to {adata.var['highly_variable'].sum()} highly variable genes")
-        adata = adata[:, adata.var['highly_variable']]
+        result = adata[:, adata.var['highly_variable']]
 
-        if not inplace:
-            return adata
+        return result
 
     def scale_data(self, adata: ad.AnnData, max_value: float = 10.0, inplace: bool = True) -> Optional[ad.AnnData]:
         """Scale data.
@@ -264,11 +262,17 @@ class scRNAPreprocessor:
         if save_raw:
             adata.raw = adata
 
+        # Validate input
+        if adata.n_obs == 0:
+            raise ValueError("Cannot preprocess empty AnnData object (0 cells)")
+        if adata.n_vars == 0:
+            raise ValueError("Cannot preprocess AnnData object with 0 genes")
+
         # Calculate QC metrics
         self.calculate_qc_metrics(adata, inplace=True)
 
         # Filter cells and genes
-        self.filter_cells(adata, inplace=True)
+        adata = self.filter_cells(adata, inplace=True)
         self.filter_genes(adata, inplace=True)
 
         # Normalize
@@ -279,7 +283,7 @@ class scRNAPreprocessor:
 
         # Optionally subset to HVGs
         if return_hvg_subset:
-            adata = adata[:, adata.var['highly_variable']].copy()
+            adata = self.subset_to_hvg(adata, inplace=False)
 
         # Scale if requested
         self.scale_data(adata, inplace=True)

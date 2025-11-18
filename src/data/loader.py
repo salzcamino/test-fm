@@ -31,16 +31,26 @@ class scRNADataLoader:
 
         Returns:
             AnnData object
+
+        Raises:
+            FileNotFoundError: If file doesn't exist
+            ValueError: If file is corrupted or invalid
         """
+        if not self.data_path.exists():
+            raise FileNotFoundError(f"Data file not found: {self.data_path}")
+
         logger.info(f"Loading h5ad file from {self.data_path}")
 
-        if backed:
-            self.adata = ad.read_h5ad(self.data_path, backed='r')
-        else:
-            self.adata = ad.read_h5ad(self.data_path)
+        try:
+            if backed:
+                self.adata = ad.read_h5ad(self.data_path, backed='r')
+            else:
+                self.adata = ad.read_h5ad(self.data_path)
 
-        logger.info(f"Loaded {self.adata.n_obs} cells and {self.adata.n_vars} genes")
-        return self.adata
+            logger.info(f"Loaded {self.adata.n_obs} cells and {self.adata.n_vars} genes")
+            return self.adata
+        except Exception as e:
+            raise ValueError(f"Failed to load h5ad file: {e}") from e
 
     def load_10x_mtx(self, matrix_path: str, features_path: str, barcodes_path: str) -> ad.AnnData:
         """Load 10X format data (matrix, features, barcodes).

@@ -34,6 +34,16 @@ class scRNADataset(Dataset):
             dropout_prob: Probability of dropping out gene expression
             gaussian_noise: Standard deviation of Gaussian noise
         """
+        # Validate input parameters
+        if expression_bins <= 0:
+            raise ValueError(f"expression_bins must be positive, got {expression_bins}")
+        if not 0 <= mask_prob <= 1:
+            raise ValueError(f"mask_prob must be between 0 and 1, got {mask_prob}")
+        if not 0 <= dropout_prob <= 1:
+            raise ValueError(f"dropout_prob must be between 0 and 1, got {dropout_prob}")
+        if gaussian_noise < 0:
+            raise ValueError(f"gaussian_noise must be non-negative, got {gaussian_noise}")
+
         self.adata = adata
         self.expression_bins = expression_bins
         self.mask_prob = mask_prob
